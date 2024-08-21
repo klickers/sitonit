@@ -3,5 +3,178 @@ import Layout from "../layouts/Layout.astro"
 ---
 
 <Layout>
-	<main></main>
+	<main class="w-full space-y-12">
+		<div class="flex gap-20 py-20">
+			<header class="w-1/2 prose">
+				<h1>Sit On It</h1>
+				<p>If you feel like . . .</p>
+				<ul>
+					<li>
+						you make decisions too quickly, without enough time to
+						think,
+					</li>
+					<li>OR you fall victim to impulse buying,</li>
+					<li>OR you just want to make better decisions overall,</li>
+				</ul>
+				<p>. . . then this is for you.</p>
+			</header>
+			<div class="w-1/2 flex items-center justify-center">
+				<form class="form-control w-full space-y-3">
+					<!--<label for="size" class="label"
+						>My decision is . . .
+					</label>
+					<input
+						type="range"
+						name="size"
+						min="0"
+						max="50"
+						value="25"
+						class="range"
+						step="25"
+					/>
+					<div
+						class="flex w-full justify-between px-2 text-xs text-center mb-4"
+					>
+						<span>Small</span>
+						<span>Medium</span>
+						<span>Big</span>
+					</div>-->
+					<div class="form-control">
+						<label for="decision" class="label">
+							<span>
+								What's the decision you need to sit on?
+								<span class="text-red-500">*</span>
+							</span>
+						</label>
+						<input
+							type="text"
+							name="decision"
+							placeholder="Buying new shoes"
+							class="input input-bordered"
+							required
+						/>
+					</div>
+					<div class="form-control">
+						<label for="notes" class="label">
+							Any notes you want to add to yourself?
+						</label>
+						<textarea
+							class="textarea textarea-bordered"
+							placeholder="I've never had a pair of cowboy boots, and I really like this one's style"
+						></textarea>
+					</div>
+					<div class="flex gap-6">
+						<div class="shrink-0">
+							<label class="label">
+								<span>
+									Remind me in . . .
+									<span class="text-red-500">*</span>
+								</span>
+							</label>
+							<div class="join join-vertical lg:join-horizontal">
+								<input
+									class="join-item input input-bordered max-w-20"
+									type="number"
+									value="3"
+									required
+								/>
+								<select
+									class="join-item select select-bordered w-full max-w-xs"
+								>
+									<option>hours</option>
+									<option selected>days</option>
+									<option>weeks</option>
+								</select>
+							</div>
+						</div>
+						<div class="w-full">
+							<label class="label"><span>Email</span></label>
+							<input
+								type="email"
+								name="email"
+								placeholder="bootsman@gmail.com"
+								class="input input-bordered w-full"
+								required
+							/>
+						</div>
+					</div>
+					<div class="form-control">
+						<button class="btn btn-primary mt-3" type="submit">
+							Sit On It
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<section class="py-20 bg-slate-100 flex gap-20 hidden">
+			<div class="prose">
+				<h2>Impulse Buying</h2>
+				<p>
+					I'm one of those people who fall into the trap of impulse
+					buying, especially when it comes to crowdfunded projects
+					(looking at you, Kickstarter and Backerkit).
+				</p>
+			</div>
+			<div class="w-1/2">
+				<div class="prose mb-6"><h3>Recommended Resources</h3></div>
+				<div class="grid grid-cols-2 gap-6">
+					<div class="card shadow-xl bg-white">
+						<figure>
+							<img
+								src="/images/pause.fyi.png"
+								alt="Screenshot of pause.fyi website"
+							/>
+						</figure>
+						<div class="card-body">
+							<h2 class="card-title">pause.fyi</h2>
+							<p>
+								A Chrome extension that helps you control
+								impulse shopping.
+							</p>
+							<div class="card-actions justify-end">
+								<a
+									href="https://pause.fyi"
+									target="_blank"
+									class="btn btn-primary"
+								>
+									Visit
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="card shadow-xl bg-white">
+						<figure>
+							<img
+								src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+								alt="Shoes"
+							/>
+						</figure>
+						<div class="card-body">
+							<h2 class="card-title">Shoes!</h2>
+							<p>
+								If a dog chews shoes whose shoes does he choose?
+							</p>
+							<div class="card-actions justify-end">
+								<button class="btn btn-primary">Buy Now</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer class="px-6 py-12 bg-slate-700">
+		<div class="prose text-white">
+			<p>
+				&copy; 2024 <a
+					href="https://cathzchen.com"
+					target="_blank"
+					class="text-white font-normal"
+				>
+					Catherine Chen</a
+				>.
+			</p>
+			<p><em>I make interesting projects sometimes.</em></p>
+		</div>
+	</footer>
 </Layout>
