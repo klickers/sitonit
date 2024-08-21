@@ -213,8 +213,8 @@ if (Astro.request.method === "POST") {
 			</div>
 		</section>
 	</main>
-	<footer class="px-6 py-12 bg-slate-700">
-		<div class="prose text-white">
+	<footer class="px-6 py-12 bg-slate-700 flex gap-6">
+		<div class="prose text-white w-1/2">
 			<p>
 				&copy; 2024 <a
 					href="https://cathzchen.com"
@@ -225,6 +225,17 @@ if (Astro.request.method === "POST") {
 				>.
 			</p>
 			<p><em>I make interesting projects sometimes.</em></p>
+		</div>
+		<div class="prose text-white w-1/2">
+			<p>
+				Questions, thoughts, or comments?
+				<a
+					href="https://forms.gle/n7yUW5vtCL1BckJ3A"
+					class="font-normal"
+				>
+					Give feedback here.
+				</a>
+			</p>
 		</div>
 	</footer>
 </Layout>
