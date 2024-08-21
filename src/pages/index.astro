@@ -1,5 +1,41 @@
 ---
+import { Resend } from "resend"
+import { add, format, formatISO } from "date-fns"
 import Layout from "../layouts/Layout.astro"
+
+if (Astro.request.method === "POST") {
+	try {
+		const data = await Astro.request.formData()
+		const decision = data.get("decision")
+		const notes = data.get("notes")
+		const reminderNumber = parseInt(data.get("reminder_number") as string)
+		const reminderUnit = data.get("reminder_unit") as string
+		const email = data.get("email") as string
+
+		const resend = new Resend(import.meta.env.RESEND_API_KEY)
+
+		const unit: any = {}
+		unit[reminderUnit] = reminderNumber
+		;(async function () {
+			const { data, error } = await resend.emails.send({
+				from: import.meta.env.RESEND_FROM,
+				to: [email],
+				replyTo: import.meta.env.RESEND_REPLY_TO,
+				subject: `Time to think about your decision: ${decision}`,
+				html: `<p><strong>Decision: </strong>${decision}</p>
+					<p><strong>Sat on: </strong>${format(new Date(), "MMMM dd, yyyy")}</p>
+					${notes ? `<p><strong>Notes regarding your decision: </strong>${notes}</p>` : ""}
+					<p><em>Note: Please direct all questions, feedback, and other comments to <a href="mailto:hello@cathzchen.com">hello@cathzchen.com</a>.  This should also be the default reply-to address.</em></p>`,
+				scheduledAt: formatISO(add(new Date(), unit)),
+			})
+
+			if (error) return console.error({ error })
+			// document.getElementById("scheduled")?.classList.remove("hidden")
+		})()
+	} catch (error) {
+		if (error instanceof Error) console.error(error.message)
+	}
+}
 ---
 
 <Layout>
@@ -19,7 +55,7 @@ import Layout from "../layouts/Layout.astro"
 				<p>. . . then this is for you.</p>
 			</header>
 			<div class="w-1/2 flex items-center justify-center">
-				<form class="form-control w-full space-y-3">
+				<form class="form-control w-full space-y-3" method="POST">
 					<!--<label for="size" class="label"
 						>My decision is . . .
 					</label>
@@ -60,6 +96,7 @@ import Layout from "../layouts/Layout.astro"
 						</label>
 						<textarea
 							class="textarea textarea-bordered"
+							name="notes"
 							placeholder="I've never had a pair of cowboy boots, and I really like this one's style"
 						></textarea>
 					</div>
@@ -75,11 +112,13 @@ import Layout from "../layouts/Layout.astro"
 								<input
 									class="join-item input input-bordered max-w-20"
 									type="number"
+									name="reminder_number"
 									value="3"
 									required
 								/>
 								<select
 									class="join-item select select-bordered w-full max-w-xs"
+									name="reminder_unit"
 								>
 									<option>hours</option>
 									<option selected>days</option>
@@ -102,6 +141,11 @@ import Layout from "../layouts/Layout.astro"
 						<button class="btn btn-primary mt-3" type="submit">
 							Sit On It
 						</button>
+						<div id="scheduled" class="prose hidden">
+							<p class="mt-2 text-center text-neutral-500">
+								Reminder scheduled!
+							</p>
+						</div>
 					</div>
 				</form>
 			</div>
