@@ -37,3 +37,13 @@ label {
 		}
 	}
 }
+
+@media (max-width: theme("screens.md")) {
+	.hero-wrap {
+		@apply flex-col gap-10;
+
+		& > * {
+			@apply w-full;
+		}
+	}
+}
