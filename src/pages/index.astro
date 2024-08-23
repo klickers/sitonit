@@ -30,12 +30,15 @@ if (Astro.request.method === "POST") {
 			})
 
 			if (error) return console.error({ error })
-			// document.getElementById("scheduled")?.classList.remove("hidden")
 		})()
+
+		return Astro.redirect("/?success=true")
 	} catch (error) {
 		if (error instanceof Error) console.error(error.message)
 	}
 }
+
+const success = Astro.url.searchParams.get("success") ? true : false
 ---
 
 <Layout>
@@ -147,7 +150,10 @@ if (Astro.request.method === "POST") {
 						<button class="btn btn-primary mt-3" type="submit">
 							Sit On It
 						</button>
-						<div id="scheduled" class="prose hidden">
+						<div
+							id="scheduled"
+							class={`prose ${success ? "" : "hidden"}`}
+						>
 							<p class="mt-2 text-center text-neutral-500">
 								Reminder scheduled!
 							</p>
